@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="reactjs/react.development.js"></script>
+    <script src="reactjs/react-dom.development.js"></script>
+    <script src="reactjs/babel.min.js"></script>
+    <title>Document</title>
+    <style>              
+        .thead-bg{
+            background-color: #000;
+            color: #fff;
+        }
+        .red{
+            background-color: #00f;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center" id="root">
+    </div>
+    <script type="text/babel">
+    class TodoList extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={
+                eventList:[
+                    {
+                        eventName:'上课',
+                        eventTime:'2018-09-14',
+                        time:2,
+                        isRed:false,
+                    },
+                    {
+                        eventName:'吃饭',
+                        eventTime:'2018-09-14',
+                        time:2,
+                        isRed:false,
+                    },
+                    {
+                        eventName:'午休',
+                        eventTime:'2018-09-14',
+                        time:2,
+                        isRed:false,
+                    },
+                    {
+                        eventName:'篮球',
+                        eventTime:'2018-09-14',
+                        time:2,
+                        isRed:false,
+                    },
+                    {
+                        eventName:'聚会',
+                        eventTime:'2018-09-14',
+                        time:2,
+                        isRed:false,
+                    }
+                ],
+                evName:'',
+                evTime:'',
+                time:''
+            }
+            };
+        
+        render(){
+            return(
+                <div>
+                    <Search list={this.state.eventList}/>
+                    <Content list={this.state.eventList}/>
+                </div>
+            )
+        }
+    }
+        class Search extends React.Component {
+            add(){
+                console.log(this.props)
+                this.props.list.push({
+                    eventName:'上课',
+                    eventTime:'2018-09-14',
+                    time:2,
+                    isRed:false,
+                });
+            }
+            handleSubmit(even){
+                even.preventDefault();
+            }
+            render() {
+                return (
+                    <div>
+                        <h1>todoList</h1>
+                        <hr/>
+                        <form className="form-inline" onSubmit={this.handleSubmit}>
+                            <input type="text" className="form-control" id="exampleInputName2" placeholder="请输入商品名称"/>
+                            <button type="submit" className="btn btn-default">搜索</button>
+                            <br/>
+                            <div className="form-group">
+                            <label htmlFor="exampleInputName2">待办事项：</label>
+                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项"/>
+                            </div>
+                            <div className="form-group">
+                            <label htmlFor="exampleInputEmail2">待办时间：</label>
+                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日"/>
+                            </div>
+                            <div className="form-group">
+                            <label htmlFor="exampleInputEmail2">预计用时：</label>
+                            <input type="text" className="form-control" id="exampleInputEmail2" placeholder="预计用时"/>
+                            </div>
+                            <button type="submit" className="btn btn-default add" onClick={this.add.bind(this)}>增加</button>
+                        </form>
+                        
+                    </div>
+                );
+            }
+        };
+        class Content extends React.Component{
+            constructor(props){
+            super(props);
+            this.state={
+                checkboxList:[],
+            }}
+            active(index){
+                let nowEvent = this.props.list[index];
+                nowEvent.isRed = !nowEvent.isRed;
+                this.setState({
+                    
+                })
+            };
+            del(index){
+                this.props.list.splice(index,1);
+            };
+            delSelect(){
+                // console.log(this.props.list);
+                // console.log(this.state.checkboxList);
+                let nowList = this.props.list.filter((item,index)=>{
+                    // console.log(item,index);
+                    if(!this.state.checkboxList.includes(index)){
+                        return item;
+                    }
+                })
+                // let nowList = this.props.list.filter((item,index)=>{
+                //     if(!this.state.checkboxList.includes(index)){
+                //         return item;
+                //     }
+                // });
+                // console.log(nowList);
+                // this.props.list = this.props.list.filter((item,index)=>{
+                //     if(!this.state.checkboxList.includes(index)){
+                //         return item;
+                //     }
+                // });
+                // this.state.checkboxList = [];
+            };
+            render(){
+                let list = this.props.list;
+                const listTr = list.map((item,index,array) =>
+                <tr key={index} ref="tr" onClick={this.active.bind(this,index)} style={{background:item.isRed?'#f00':''}}>
+                    <td><input type="checkbox"/></td>
+                    <td>{item.eventName}</td>
+                    <td>{item.eventTime}</td>
+                    <td>{item.time}</td>
+                    <td><button className="glyphicon glyphicon-trash"  onClick={this.del.bind(this,index)}></button></td>
+                </tr>
+            )
+            
+                return(
+                <div>
+                    <table className="table table-bordered text-center" >
+                        <thead>
+                            <tr className="thead-bg">
+                                <td>选择</td>
+                                <td>待办事项</td>
+                                <td>待办时间</td>
+                                <td>预用时间</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {listTr}
+                            <tr>
+                                <td>
+                                    <button onClick={this.delSelect.bind(this)}>删除选中</button>
+                                </td>
+                                <td colSpan="4">总共用时：0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+            }
+        }
+         ReactDOM.render(
+            <TodoList/>,
+            document.getElementById('root')
+         )
+    </script>
+</body>
+</html>
