@@ -59,9 +59,6 @@
                         isRed:false,
                     }
                 ],
-                evName:'',
-                evTime:'',
-                time:''
             }
             };
         
@@ -75,17 +72,31 @@
         }
     }
         class Search extends React.Component {
-            add(){
-                console.log(this.props)
-                this.props.list.push({
-                    eventName:'上课',
-                    eventTime:'2018-09-14',
-                    time:2,
-                    isRed:false,
-                });
+            constructor(props){
+            super(props);
+            this.state={
+                    value1:'',
+                    // value:''
+                    evname:'',
+                    evtime:'',
+                    time:null,
+                    
+                };
+            this.handleChange = this.handleChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
             }
-            handleSubmit(even){
-                even.preventDefault();
+            add(){
+                // console.log(this.props);
+                console.log(this.state.value1);
+            }
+            handleSubmit(event){
+                event.preventDefault();
+            }
+            handleChange(event){
+                this.setState({
+                    value1: event.target.value,
+                });
+                console.log(this.refs)
             }
             render() {
                 return (
@@ -98,15 +109,15 @@
                             <br/>
                             <div className="form-group">
                             <label htmlFor="exampleInputName2">待办事项：</label>
-                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项"/>
+                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项" value={this.state.value} onChange={this.handleChange}/>
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">待办时间：</label>
-                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日"/>
+                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日" ref="input2" onChange={this.handleChange}/>
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">预计用时：</label>
-                            <input type="text" className="form-control" id="exampleInputEmail2" placeholder="预计用时"/>
+                            <input type="text" className="form-control" id="exampleInputEmail2" placeholder="预计用时" />
                             </div>
                             <button type="submit" className="btn btn-default add" onClick={this.add.bind(this)}>增加</button>
                         </form>
