@@ -27,18 +27,51 @@
         constructor(props){
             super(props);
             this.state={
-                
+                eventList:[
+                    {
+                        eventName:'上课',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'吃饭',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'午休',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'篮球',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'聚会',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    }
+                ],
+                obj:{
+                    eventName:'',
+                    eventTime:'',
+                    time:'',
+                    isRed:false,
+                }
             }
         };
-        addL(){
-            console.log(this);
-        // addL={this.active.bind(this,array)}
-        }
         render(){
             return(
                 <div>
-                    <Search list={this.state.list}/>
-                    <Content list={this.state.eventList} onClick={this.addL.bind(this)}/>
+                    <Search list={this.state.eventList} evObj={this.state.obj}/>
+                    <Content list={this.state.eventList}/>
                 </div>
             )
         }
@@ -53,14 +86,24 @@
                 };
             this.handleSubmit = this.handleSubmit.bind(this);
             }
-            add(){
-                console.log(this.props);
-                // this.props.list.push({
-                //     eventName:this.state.evname,
-                //     eventTime:this.state.evtime,
-                //     time:this.state.time,
-                //     isRed:false,
-                // });
+            add(props){
+                // console.log(this.props.list);
+                // let evList = this.props.list;
+                this.props.evObj.eventName = this.state.evname;
+                this.props.evObj.eventTime = this.state.evtime;
+                this.props.evObj.time = this.state.time;
+                // this.setState({
+                //     name:this.state.evname,
+
+                // })
+                // this.props.obj.isRed = false,
+                // evList.push({
+                //         eventName:this.state.evname,
+                //         eventTime:this.state.evtime,
+                //         time:this.state.time,
+                //         isRed:false,
+                //     })
+                // console.log(evList)
             }
             handleSubmit(event){
                 event.preventDefault();
@@ -112,57 +155,26 @@
             constructor(props){
             super(props);
             this.state={
-                eventList:[
-                    {
-                        eventName:'上课',
-                        eventTime:'2018-09-14',
-                        time:'2',
-                        isRed:false,
-                    },
-                    {
-                        eventName:'吃饭',
-                        eventTime:'2018-09-14',
-                        time:'2',
-                        isRed:false,
-                    },
-                    {
-                        eventName:'午休',
-                        eventTime:'2018-09-14',
-                        time:'2',
-                        isRed:false,
-                    },
-                    {
-                        eventName:'篮球',
-                        eventTime:'2018-09-14',
-                        time:'2',
-                        isRed:false,
-                    },
-                    {
-                        eventName:'聚会',
-                        eventTime:'2018-09-14',
-                        time:'2',
-                        isRed:false,
-                    }
-                ],
+              
             }}
             active(index,item){
                 // console.log(this);
-                let nowEvent = this.state.eventList[index];
+                let nowEvent = this.state.list[index];
                 nowEvent.isRed = !nowEvent.isRed;
                 this.setState({
 
                 })
             };
-            del(index){
-                this.props.list.splice(index,1);
-            };
-            // delSelect(){
-                
+            // del(index){
+            //     this.props.list.splice(index,1);
             // };
+            delSelect(){
+                // console.log(this.props);
+            };
             render(){
-                let list = this.state.eventList;
+                let list = this.props.list;
                 const listTr = list.map((item,index,array) =>
-                <tr key={index} ref="tr" onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
+                <tr key={index} onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
                     <td><input type="checkbox"/></td>
                     <td>{item.eventName}</td>
                     <td>{item.eventTime}</td>
@@ -187,7 +199,7 @@
                                 {listTr}
                             <tr>
                                 <td>
-                                    <button>删除选中</button>
+                                    <button onClick={this.delSelect.bind(this)}>删除选中</button>
                                 </td>
                                 <td colSpan="4">总共用时：0</td>
                             </tr>
