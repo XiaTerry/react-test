@@ -27,46 +27,18 @@
         constructor(props){
             super(props);
             this.state={
-                eventList:[
-                    {
-                        eventName:'上课',
-                        eventTime:'2018-09-14',
-                        time:2,
-                        isRed:false,
-                    },
-                    {
-                        eventName:'吃饭',
-                        eventTime:'2018-09-14',
-                        time:2,
-                        isRed:false,
-                    },
-                    {
-                        eventName:'午休',
-                        eventTime:'2018-09-14',
-                        time:2,
-                        isRed:false,
-                    },
-                    {
-                        eventName:'篮球',
-                        eventTime:'2018-09-14',
-                        time:2,
-                        isRed:false,
-                    },
-                    {
-                        eventName:'聚会',
-                        eventTime:'2018-09-14',
-                        time:2,
-                        isRed:false,
-                    }
-                ],
+                
             }
-            };
-        
+        };
+        addL(){
+            console.log(this);
+        // addL={this.active.bind(this,array)}
+        }
         render(){
             return(
                 <div>
-                    <Search list={this.state.eventList}/>
-                    <Content list={this.state.eventList}/>
+                    <Search list={this.state.list}/>
+                    <Content list={this.state.eventList} onClick={this.addL.bind(this)}/>
                 </div>
             )
         }
@@ -75,28 +47,38 @@
             constructor(props){
             super(props);
             this.state={
-                    value1:'',
-                    // value:''
                     evname:'',
                     evtime:'',
-                    time:null,
-                    
+                    time:'',
                 };
-            this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
             }
             add(){
-                // console.log(this.props);
-                console.log(this.state.value1);
+                console.log(this.props);
+                // this.props.list.push({
+                //     eventName:this.state.evname,
+                //     eventTime:this.state.evtime,
+                //     time:this.state.time,
+                //     isRed:false,
+                // });
             }
             handleSubmit(event){
                 event.preventDefault();
             }
-            handleChange(event){
+            handleChange1(event){
                 this.setState({
-                    value1: event.target.value,
+                    evname: event.target.value,
                 });
-                console.log(this.refs)
+            }
+            handleChange2(event){
+                this.setState({
+                    evtime: event.target.value,
+                });
+            }
+            handleChange3(event){
+                this.setState({
+                    time: event.target.value,
+                });
             }
             render() {
                 return (
@@ -109,15 +91,15 @@
                             <br/>
                             <div className="form-group">
                             <label htmlFor="exampleInputName2">待办事项：</label>
-                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项" value={this.state.value} onChange={this.handleChange}/>
+                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项" onChange={this.handleChange1.bind(this)}/>
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">待办时间：</label>
-                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日" ref="input2" onChange={this.handleChange}/>
+                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日" onChange={this.handleChange2.bind(this)}/>
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">预计用时：</label>
-                            <input type="text" className="form-control" id="exampleInputEmail2" placeholder="预计用时" />
+                            <input type="text" className="form-control" id="exampleInputEmail2" placeholder="预计用时" onChange={this.handleChange3.bind(this)}/>
                             </div>
                             <button type="submit" className="btn btn-default add" onClick={this.add.bind(this)}>增加</button>
                         </form>
@@ -130,49 +112,62 @@
             constructor(props){
             super(props);
             this.state={
-                checkboxList:[],
+                eventList:[
+                    {
+                        eventName:'上课',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'吃饭',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'午休',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'篮球',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    },
+                    {
+                        eventName:'聚会',
+                        eventTime:'2018-09-14',
+                        time:'2',
+                        isRed:false,
+                    }
+                ],
             }}
-            active(index){
-                let nowEvent = this.props.list[index];
+            active(index,item){
+                // console.log(this);
+                let nowEvent = this.state.eventList[index];
                 nowEvent.isRed = !nowEvent.isRed;
                 this.setState({
-                    
+
                 })
             };
             del(index){
                 this.props.list.splice(index,1);
             };
-            delSelect(){
-                // console.log(this.props.list);
-                // console.log(this.state.checkboxList);
-                let nowList = this.props.list.filter((item,index)=>{
-                    // console.log(item,index);
-                    if(!this.state.checkboxList.includes(index)){
-                        return item;
-                    }
-                })
-                // let nowList = this.props.list.filter((item,index)=>{
-                //     if(!this.state.checkboxList.includes(index)){
-                //         return item;
-                //     }
-                // });
-                // console.log(nowList);
-                // this.props.list = this.props.list.filter((item,index)=>{
-                //     if(!this.state.checkboxList.includes(index)){
-                //         return item;
-                //     }
-                // });
-                // this.state.checkboxList = [];
-            };
+            // delSelect(){
+                
+            // };
             render(){
-                let list = this.props.list;
+                let list = this.state.eventList;
                 const listTr = list.map((item,index,array) =>
-                <tr key={index} ref="tr" onClick={this.active.bind(this,index)} style={{background:item.isRed?'#f00':''}}>
+                <tr key={index} ref="tr" onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
                     <td><input type="checkbox"/></td>
                     <td>{item.eventName}</td>
                     <td>{item.eventTime}</td>
                     <td>{item.time}</td>
-                    <td><button className="glyphicon glyphicon-trash"  onClick={this.del.bind(this,index)}></button></td>
+                    <td><button className="glyphicon glyphicon-trash" ></button></td>
                 </tr>
             )
             
@@ -192,7 +187,7 @@
                                 {listTr}
                             <tr>
                                 <td>
-                                    <button onClick={this.delSelect.bind(this)}>删除选中</button>
+                                    <button>删除选中</button>
                                 </td>
                                 <td colSpan="4">总共用时：0</td>
                             </tr>
