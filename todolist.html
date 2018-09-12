@@ -59,51 +59,40 @@
                         isRed:false,
                     }
                 ],
-                obj:{
-                    eventName:'',
-                    eventTime:'',
-                    time:'',
-                    isRed:false,
-                }
             }
         };
         render(){
             return(
                 <div>
                     <Search list={this.state.eventList} evObj={this.state.obj}/>
-                    <Content list={this.state.eventList}/>
                 </div>
-            )
+                )
+            }
         }
-    }
         class Search extends React.Component {
             constructor(props){
             super(props);
             this.state={
+                eventList:this.props.list,
                     evname:'',
                     evtime:'',
                     time:'',
                 };
             this.handleSubmit = this.handleSubmit.bind(this);
+            this.add = this.add.bind(this);
             }
-            add(props){
-                // console.log(this.props.list);
-                // let evList = this.props.list;
-                this.props.evObj.eventName = this.state.evname;
-                this.props.evObj.eventTime = this.state.evtime;
-                this.props.evObj.time = this.state.time;
-                // this.setState({
-                //     name:this.state.evname,
-
-                // })
-                // this.props.obj.isRed = false,
-                // evList.push({
-                //         eventName:this.state.evname,
-                //         eventTime:this.state.evtime,
-                //         time:this.state.time,
-                //         isRed:false,
-                //     })
-                // console.log(evList)
+            add(){
+                this.state.eventList.push({
+                    eventName:this.state.evname,
+                    eventTime:this.state.evtime,
+                    time:this.state.time,
+                    isRed:false
+                })
+                this.setState({
+                    evname:this.state.evname,
+                    evtime:this.state.evtime,
+                    time:this.state.time,
+                })
             }
             handleSubmit(event){
                 event.preventDefault();
@@ -146,7 +135,7 @@
                             </div>
                             <button type="submit" className="btn btn-default add" onClick={this.add.bind(this)}>增加</button>
                         </form>
-                        
+                        <Content list={this.state.eventList}/>
                     </div>
                 );
             }
@@ -155,24 +144,21 @@
             constructor(props){
             super(props);
             this.state={
-              
+                eventList:this.props.list,
+                evname:'',
+                evtime:'',
+                time:'',
             }}
             active(index,item){
-                // console.log(this);
-                let nowEvent = this.state.list[index];
+                console.log(index);
+                let nowEvent = this.state.eventList[index];
                 nowEvent.isRed = !nowEvent.isRed;
                 this.setState({
 
                 })
             };
-            // del(index){
-            //     this.props.list.splice(index,1);
-            // };
-            delSelect(){
-                // console.log(this.props);
-            };
             render(){
-                let list = this.props.list;
+                let list = this.state.eventList;
                 const listTr = list.map((item,index,array) =>
                 <tr key={index} onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
                     <td><input type="checkbox"/></td>
@@ -181,8 +167,7 @@
                     <td>{item.time}</td>
                     <td><button className="glyphicon glyphicon-trash" ></button></td>
                 </tr>
-            )
-            
+                )
                 return(
                 <div>
                     <table className="table table-bordered text-center" >
@@ -196,10 +181,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                                {listTr}
+                            {listTr}
                             <tr>
                                 <td>
-                                    <button onClick={this.delSelect.bind(this)}>删除选中</button>
+                                    <button>删除选中</button>
                                 </td>
                                 <td colSpan="4">总共用时：0</td>
                             </tr>
