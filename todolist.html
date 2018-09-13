@@ -31,31 +31,31 @@
                     {
                         eventName:'上课',
                         eventTime:'2018-09-14',
-                        time:'2',
+                        time:2,
                         isRed:false,
                     },
                     {
                         eventName:'吃饭',
                         eventTime:'2018-09-14',
-                        time:'2',
+                        time:2,
                         isRed:false,
                     },
                     {
                         eventName:'午休',
                         eventTime:'2018-09-14',
-                        time:'2',
+                        time:2,
                         isRed:false,
                     },
                     {
                         eventName:'篮球',
                         eventTime:'2018-09-14',
-                        time:'2',
+                        time:2,
                         isRed:false,
                     },
                     {
                         eventName:'聚会',
                         eventTime:'2018-09-14',
-                        time:'2',
+                        time:2,
                         isRed:false,
                     }
                 ],
@@ -76,7 +76,7 @@
                 eventList:this.props.list,
                     evname:'',
                     evtime:'',
-                    time:'',
+                    time:0,
                 };
             this.handleSubmit = this.handleSubmit.bind(this);
             this.add = this.add.bind(this);
@@ -109,7 +109,7 @@
             }
             handleChange3(event){
                 this.setState({
-                    time: event.target.value,
+                    time: parseInt(event.target.value),
                 });
             }
             render() {
@@ -131,7 +131,7 @@
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">预计用时：</label>
-                            <input type="text" className="form-control" id="exampleInputEmail2" placeholder="预计用时" onChange={this.handleChange3.bind(this)}/>
+                            <input type="number" className="form-control" id="exampleInputEmail2" placeholder="预计用时" onChange={this.handleChange3.bind(this)}/>
                             </div>
                             <button type="submit" className="btn btn-default add" onClick={this.add.bind(this)}>增加</button>
                         </form>
@@ -145,27 +145,62 @@
             super(props);
             this.state={
                 eventList:this.props.list,
+                checkboxList:[],
                 evname:'',
                 evtime:'',
-                time:'',
-            }}
+                time:0,
+                sumT:0,
+                nowInex:-1,
+             }}
             active(index,item){
-                console.log(index);
                 let nowEvent = this.state.eventList[index];
                 nowEvent.isRed = !nowEvent.isRed;
+                let isRed = nowEvent.isRed;
+                
+                if(isRed){
+                    this.setState({
+                        sumT:nowEvent.time + this.state.sumT,
+                        checkboxList:this.state.checkboxList.push(nowEvent)
+                    })
+                }else{
+                    this.setState({
+                        sumT:this.state.sumT - nowEvent.time
+                    })
+                }
+                this.setState({
+                    
+                })
+            };
+            del(index,e){
+                e.stopPropagation();
+                this.state.eventList.splice(index,1);
                 this.setState({
 
                 })
-            };
+            }
+            delSelect(e){
+                let lt = this.state.eventList.filter((item,index)=>{
+                        if(!this.state.checkboxList.includes(index)){
+                            return item;
+                        }
+                    });
+                // this.state.checkboxList = [];
+                // console.log(e.target);
+                console.log(this.state.eventList)
+            }
+            change(index,e){
+                e.stopPropagation();
+                
+            }
             render(){
                 let list = this.state.eventList;
                 const listTr = list.map((item,index,array) =>
                 <tr key={index} onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
-                    <td><input type="checkbox"/></td>
+                    <td><input type="checkbox" onClick={this.change.bind(this,index)}/></td>
                     <td>{item.eventName}</td>
                     <td>{item.eventTime}</td>
                     <td>{item.time}</td>
-                    <td><button className="glyphicon glyphicon-trash" ></button></td>
+                    <td><button className="glyphicon glyphicon-trash" onClick={this.del.bind(this,index)}></button></td>
                 </tr>
                 )
                 return(
@@ -184,9 +219,9 @@
                             {listTr}
                             <tr>
                                 <td>
-                                    <button>删除选中</button>
+                                    <button onClick={this.delSelect.bind(this)}>删除选中</button>
                                 </td>
-                                <td colSpan="4">总共用时：0</td>
+                                <td colSpan="4">总共用时：{this.state.sumT}</td>
                             </tr>
                         </tbody>
                     </table>
