@@ -74,10 +74,10 @@
             super(props);
             this.state={
                 eventList:this.props.list,
-                    evname:'',
-                    evtime:'',
-                    time:0,
-                };
+                evname:'',
+                evtime:'',
+                time:0,
+            }
             this.handleSubmit = this.handleSubmit.bind(this);
             this.add = this.add.bind(this);
             }
@@ -160,7 +160,6 @@
                 if(isRed){
                     this.setState({
                         sumT:nowEvent.time + this.state.sumT,
-                        checkboxList:this.state.checkboxList.push(nowEvent)
                     })
                 }else{
                     this.setState({
@@ -175,28 +174,36 @@
                 e.stopPropagation();
                 this.state.eventList.splice(index,1);
                 this.setState({
-
+                    
                 })
             }
             delSelect(e){
-                let lt = this.state.eventList.filter((item,index)=>{
-                        if(!this.state.checkboxList.includes(index)){
-                            return item;
-                        }
-                    });
-                // this.state.checkboxList = [];
-                // console.log(e.target);
-                console.log(this.state.eventList)
+                e.preventDefault();
+                let lt=this.state.eventList.filter((element, index, array)=>{
+                    return (!element.isRed)
+                })
+                this.setState({
+                    eventList:lt
+                })
             }
             change(index,e){
+                let nowEvent = this.state.eventList[index];
+                nowEvent.isRed = !nowEvent.isRed;
                 e.stopPropagation();
-                
+                if(!nowEvent.isRed){
+                    this.state.checkboxList.push({
+                        eventName:nowEvent.eventName,
+                        eventTime:nowEvent.eventTime,
+                        time:nowEvent.time,
+                        isRed:false
+                    })
+                }
             }
             render(){
                 let list = this.state.eventList;
                 const listTr = list.map((item,index,array) =>
                 <tr key={index} onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
-                    <td><input type="checkbox" onClick={this.change.bind(this,index)}/></td>
+                    <td><input type="checkbox" checkbox="checkbox" ref="input" onClick={this.change.bind(this,index)}/></td>
                     <td>{item.eventName}</td>
                     <td>{item.eventTime}</td>
                     <td>{item.time}</td>
