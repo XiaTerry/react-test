@@ -77,6 +77,7 @@
                 evname:'',
                 evtime:'',
                 time:0,
+                name:''
             }
             this.handleSubmit = this.handleSubmit.bind(this);
             this.add = this.add.bind(this);
@@ -93,6 +94,21 @@
                     evtime:this.state.evtime,
                     time:this.state.time,
                 })
+            }
+            shouldComponentUpdate(nextProps, nextState, nextContext) {
+                // console.log(nextProps, nextState, nextContext)
+            }
+            query(){
+                // console.log(this.state.name);
+                let lt = this.state.eventList.filter((item,index)=>{
+                    if(this.state.name==this.state.eventList[index].eventName){
+                        return item
+                    }
+                })
+                // console.log(lt);
+                this.setState({
+                    eventList: lt,
+                });
             }
             handleSubmit(event){
                 event.preventDefault();
@@ -112,14 +128,19 @@
                     time: parseInt(event.target.value),
                 });
             }
+            handleChange4(event){
+                this.setState({
+                    name: event.target.value
+                })
+            }
             render() {
                 return (
                     <div>
                         <h1>todoList</h1>
                         <hr/>
                         <form className="form-inline" onSubmit={this.handleSubmit}>
-                            <input type="text" className="form-control" id="exampleInputName2" placeholder="请输入商品名称"/>
-                            <button type="submit" className="btn btn-default">搜索</button>
+                            <input type="text" className="form-control" id="exampleInputName2" placeholder="请输入待办事项" onChange={this.handleChange4.bind(this)}/>
+                            <button type="submit" className="btn btn-default" onClick={this.query.bind(this)}>搜索</button>
                             <br/>
                             <div className="form-group">
                             <label htmlFor="exampleInputName2">待办事项：</label>
