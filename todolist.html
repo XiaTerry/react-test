@@ -57,7 +57,8 @@
                     }
                 ],
             }
-            this.add = this.add.bind(this)
+            this.add = this.add.bind(this);
+            this.change = this.change.bind(this);
         };
         add(item){
             let list = this.state.eventList;
@@ -66,11 +67,20 @@
                 eventList:list
             })
         }
+        change(items){
+            this.setState({
+                eventList:items
+            })
+        }
         render(){
             return(
                 <div>
-                    <Search addList={this.add}/>
-                    <Content items={this.state.eventList}/>
+                    <div>
+                        <Search addList={this.add}/>
+                    </div>
+                    <div>
+                        <Content changeItem={this.change} items={this.state.eventList}/>
+                    </div>
                 </div>
                 )
             }
@@ -100,9 +110,8 @@
             change(event){
                 this.setState({
                     [event.target.name]: event.target.value,
-                });
+                })
             }
-            
             render() {
                 return (
                     <div>
@@ -135,15 +144,9 @@
             constructor(props){
             super(props);
             this.state={
-                eventList:this.props.items,
-                checkboxList:[],
-                evname:'',
-                evtime:'',
-                time:0,
-                sumT:0,
+                eventList:[],
             }}
             componentDidMount() {
-                // console.log(this.props);
                 this.setState({
                     eventList:this.props.items
                 })
@@ -152,49 +155,45 @@
                 let nowEvent = this.state.eventList[index];
                 nowEvent.isRed = !nowEvent.isRed;
                 let isRed = nowEvent.isRed;
-                
-                if(isRed){
-                    this.setState({
-                        sumT:nowEvent.time + this.state.sumT,
-                    })
-                }else{
-                    this.setState({
-                        sumT:this.state.sumT - nowEvent.time
-                    })
-                }
                 this.setState({
                     
                 })
             };
             del(index,e){
                 e.stopPropagation();
-                this.state.eventList.splice(index,1);
+                let delList= this.props.items.splice(index,1);
                 this.setState({
-                    
+
                 })
             }
             delSelect(e){
-                e.preventDefault();
-                let lt=this.state.eventList.filter((element, index, array)=>{
-                    return (!element.isRed)
+                let nowItem = this.props.items;
+                let nowItems = nowItem.filter((item)=>{
+                    if(!item.isRed){
+                        return item;
+                    }
                 })
-                this.setState({
-                    eventList:lt
-                })
+               this.props.changeItem(nowItems);
             }
             render(){
                 let list = this.props.items;
-                const listTr = list.map((item,index,array) =>
-                <tr key={index} onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
-                    <td><input type="checkbox" checked={item.isRed}/></td>
-                    <td>{item.eventName}</td>
-                    <td>{item.eventTime}</td>
-                    <td>{item.time}</td>
-                    <td><button className="glyphicon glyphicon-trash" onClick={this.del.bind(this,index)}></button></td>
-                </tr>
-                )
+                let listTr=null;
+                let sum = 0;
+                listTr = list.map((item,index) =>{
+                    if(item.isRed){
+                        sum+=item.time;
+                    }
+                    return(
+                    <tr key={index} onClick={this.active.bind(this,index)} style={{background:item.isRed?'#f00':''}}>
+                        <td><input type="checkbox" checked={item.isRed}/></td>
+                        <td>{item.eventName}</td>
+                        <td>{item.eventTime}</td>
+                        <td>{item.time}</td>
+                        <td><button className="glyphicon glyphicon-trash" onClick={this.del.bind(this,index)}></button></td>
+                    </tr>
+                    )
+                })
                 return(
-                <div>
                     <table className="table table-bordered text-center" >
                         <thead>
                             <tr className="thead-bg">
@@ -211,13 +210,11 @@
                                 <td>
                                     <button onClick={this.delSelect.bind(this)}>删除选中</button>
                                 </td>
-                                <td colSpan="4">总共用时：{this.state.sumT}</td>
+                                <td colSpan="4">总共用时：{sum}</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            )
-            }
+            )}
         }
          ReactDOM.render(
             <TodoList/>,
