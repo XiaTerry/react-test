@@ -14,9 +14,6 @@
             background-color: #000;
             color: #fff;
         }
-        .red{
-            background-color: #00f;
-        }
     </style>
 </head>
 <body>
@@ -60,11 +57,20 @@
                     }
                 ],
             }
+            this.add = this.add.bind(this)
         };
+        add(item){
+            let list = this.state.eventList;
+            list.push(item);
+            this.setState({
+                eventList:list
+            })
+        }
         render(){
             return(
                 <div>
-                    <Search list={this.state.eventList} evObj={this.state.obj}/>
+                    <Search addList={this.add}/>
+                    <Content items={this.state.eventList}/>
                 </div>
                 )
             }
@@ -73,90 +79,54 @@
             constructor(props){
             super(props);
             this.state={
-                eventList:this.props.list,
                 evname:'',
                 evtime:'',
                 time:0,
                 name:''
             }
+            this.change = this.change.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
-            this.add = this.add.bind(this);
-            }
-            add(){
-                this.state.eventList.push({
-                    eventName:this.state.evname,
-                    eventTime:this.state.evtime,
-                    time:this.state.time,
-                    isRed:false
-                })
-                this.setState({
-                    evname:this.state.evname,
-                    evtime:this.state.evtime,
-                    time:this.state.time,
-                })
-            }
-            shouldComponentUpdate(nextProps, nextState, nextContext) {
-                // console.log(nextProps, nextState, nextContext)
-            }
-            query(){
-                // console.log(this.state.name);
-                let lt = this.state.eventList.filter((item,index)=>{
-                    if(this.state.name==this.state.eventList[index].eventName){
-                        return item
-                    }
-                })
-                // console.log(lt);
-                this.setState({
-                    eventList: lt,
-                });
             }
             handleSubmit(event){
+                let newItem={
+                    eventName:this.state.evname,
+                    eventTime:this.state.evtime,
+                    time:parseInt(this.state.time),
+                    isRed:false,
+                }
+                this.props.addList(newItem);
                 event.preventDefault();
             }
-            handleChange1(event){
+            change(event){
                 this.setState({
-                    evname: event.target.value,
+                    [event.target.name]: event.target.value,
                 });
             }
-            handleChange2(event){
-                this.setState({
-                    evtime: event.target.value,
-                });
-            }
-            handleChange3(event){
-                this.setState({
-                    time: parseInt(event.target.value),
-                });
-            }
-            handleChange4(event){
-                this.setState({
-                    name: event.target.value
-                })
-            }
+            
             render() {
                 return (
                     <div>
                         <h1>todoList</h1>
                         <hr/>
                         <form className="form-inline" onSubmit={this.handleSubmit}>
-                            <input type="text" className="form-control" id="exampleInputName2" placeholder="请输入待办事项" onChange={this.handleChange4.bind(this)}/>
-                            <button type="submit" className="btn btn-default" onClick={this.query.bind(this)}>搜索</button>
+                            <input type="text" className="form-control" id="exampleInputName2" placeholder="请输入待办事项"/>
+                            <button type="submit" className="btn btn-default">搜索</button>
                             <br/>
                             <div className="form-group">
                             <label htmlFor="exampleInputName2">待办事项：</label>
-                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项" onChange={this.handleChange1.bind(this)}/>
+                            <input  type="text" className="form-control" id="exampleInputName2" placeholder="待办事项" name="evname" onChange={this.change}/>
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">待办时间：</label>
-                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日" onChange={this.handleChange2.bind(this)}/>
+                            <input type="date" className="form-control" id="exampleInputEmail2" placeholder="年/月/日" name="evtime" onChange={this.change}/>
                             </div>
                             <div className="form-group">
                             <label htmlFor="exampleInputEmail2">预计用时：</label>
-                            <input type="number" className="form-control" id="exampleInputEmail2" placeholder="预计用时" onChange={this.handleChange3.bind(this)}/>
+                            <input type="number" className="form-control" id="exampleInputEmail2" placeholder="预计用时" name="time" onChange={this.change}/>
                             </div>
-                            <button type="submit" className="btn btn-default add" onClick={this.add.bind(this)}>增加</button>
+                            <button type="submit" className="btn btn-default add">增加</button>
                         </form>
-                        <Content list={this.state.eventList}/>
+                        
                     </div>
                 );
             }
@@ -165,14 +135,19 @@
             constructor(props){
             super(props);
             this.state={
-                eventList:this.props.list,
+                eventList:this.props.items,
                 checkboxList:[],
                 evname:'',
                 evtime:'',
                 time:0,
                 sumT:0,
-                nowInex:-1,
-             }}
+            }}
+            componentDidMount() {
+                // console.log(this.props);
+                this.setState({
+                    eventList:this.props.items
+                })
+            }
             active(index,item){
                 let nowEvent = this.state.eventList[index];
                 nowEvent.isRed = !nowEvent.isRed;
@@ -207,24 +182,11 @@
                     eventList:lt
                 })
             }
-            change(index,e){
-                let nowEvent = this.state.eventList[index];
-                nowEvent.isRed = !nowEvent.isRed;
-                e.stopPropagation();
-                if(!nowEvent.isRed){
-                    this.state.checkboxList.push({
-                        eventName:nowEvent.eventName,
-                        eventTime:nowEvent.eventTime,
-                        time:nowEvent.time,
-                        isRed:false
-                    })
-                }
-            }
             render(){
-                let list = this.state.eventList;
+                let list = this.props.items;
                 const listTr = list.map((item,index,array) =>
                 <tr key={index} onClick={this.active.bind(this,index,array)} style={{background:item.isRed?'#f00':''}}>
-                    <td><input type="checkbox" checkbox="checkbox" ref="input" onClick={this.change.bind(this,index)}/></td>
+                    <td><input type="checkbox" checked={item.isRed}/></td>
                     <td>{item.eventName}</td>
                     <td>{item.eventTime}</td>
                     <td>{item.time}</td>
