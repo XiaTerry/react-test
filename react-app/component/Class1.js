@@ -31,7 +31,7 @@ class Class1 extends Component {
   constructor(props){
     super(props);
     this.state={
-      isBlocking:true
+      isBlocking:false
     }
   }
   render() {

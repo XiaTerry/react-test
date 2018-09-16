@@ -27,7 +27,7 @@
   height: 400px;
   background: #ff0;
 }
-.App-route ul{
+/* .App-route ul{
   height: 30px;
   list-style: none;
   margin: 20px;
@@ -37,7 +37,7 @@
 }
 .App-route ul li:nth-child(2){
   float: right;
-}
+} */
 .App-content{
   text-align: center;
   width: 400px;
