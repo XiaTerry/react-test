@@ -22,10 +22,7 @@
 .App-intro {
   font-size: large;
 }
-.am-tabs-pane-wrap{
-  height: 400px !important;
-  margin-bottom: 45px !important;
-}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

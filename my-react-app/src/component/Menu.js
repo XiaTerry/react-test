@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Drawer, List, NavBar, Icon } from 'antd-mobile';
-import '@/component/css/menu.css';
 
 class Menu extends Component {
     state = {
