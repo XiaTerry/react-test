@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import { Drawer, List, NavBar, Icon } from 'antd-mobile';
 
 class Menu extends Component {
-    state = {
-      open: true,
+  constructor(props){
+    super(props);
+    this.state={
+      
+      fullScreen:true,
+      open:true,
     }
-    onOpenChange = (...args) => {
+    this.onOpenChange = this.onOpenChange.bind(this);
+  }
+  onOpenChange = (...args)=>{
       console.log(args);
       this.setState({ open: !this.state.open });
-    }
+  }
     render() {
       // fix in codepen
       const sidebar = (<List>
@@ -24,20 +30,19 @@ class Menu extends Component {
           >Category{index}</List.Item>);
         })}
       </List>);
-  
       return (<div>
-        <NavBar icon={<Icon type="ellipsis" />} onLeftClick={this.onOpenChange}>Basic</NavBar>
-        <Drawer
-          className="my-drawer"
-          style={{ minHeight: document.documentElement.clientHeight }}
-          enableDragHandle
-          contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
-          sidebar={sidebar}
-          open={this.state.open}
-          onOpenChange={this.onOpenChange}
-        >
+         <NavBar icon={<Icon type="ellipsis" />} onLeftClick={this.onOpenChange}>Basic</NavBar> */}
+          <Drawer
+            className="my-drawer"
+            style={{ minHeight: document.documentElement.clientHeight }}
+            enableDragHandle
+            contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
+            sidebar={sidebar}
+            open={this.state.open}
+            onOpenChange={this.onOpenChange}
+          >
           Click upper-left corner
-        </Drawer>
+          </Drawer>
       </div>);
     }
   }
