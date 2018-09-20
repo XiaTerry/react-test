@@ -17,7 +17,26 @@ const No = ()=>{
     <p>不好意识哦,走丢啦！</p>
   </div>
 }
-
+const Red = ()=>{
+  return <div>
+    <h3>Red</h3>
+  </div>
+}
+const Green = ()=>{
+  return <div>
+    <h3>Green</h3>
+  </div>
+}
+const Blue = ()=>{
+  return <div>
+  <h3>Blue</h3>
+</div>
+}
+const Pink = ()=>{
+  return <div>
+  <h3>Pink</h3>
+</div>
+}
 class App extends Component {
   render() {
     return (
@@ -49,8 +68,21 @@ class App extends Component {
               <Route component={No} />
           </Switch> 
           </div>
-          
-        </div>    
+        </div> 
+        <div className="con">
+          <ul>
+            <li><Link to="/red">red</Link></li>
+            <li><Link to="/green">green</Link></li>
+            <li><Link to="/blue">blue</Link></li>
+            <li><Link to="/pink">pink</Link></li>
+          </ul>
+          <div className="content">
+            <Route path="/red" component={Red}/>
+            <Route path="/green" component={Green}/>
+            <Route path="/blue" component={Blue}/>
+            <Route path="/pink" component={Pink}/>
+          </div>
+        </div>   
       </div>
       </Router>
       </Provider>

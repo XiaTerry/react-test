@@ -27,6 +27,26 @@
   height: 400px;
   background: #ff0;
 }
+.con{
+  height: 400px;
+  /* background: #f; */
+}
+.con > ul{
+  width: 400px;
+  height: 200px;
+  background: #ccc;
+  margin: 0 auto;
+} 
+.con > content{
+  width: 200px;
+  height: 200px;
+  color: #f00;
+}
+.con > ul li{
+  float: left;
+  margin-left:40px; 
+  list-style: none;
+}
 /* .App-route ul{
   height: 30px;
   list-style: none;
