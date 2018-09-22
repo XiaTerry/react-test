@@ -1,0 +1,15 @@
+.am-navbar-title{
+    flex-grow: 4;
+   
+}
+.am-search{
+    background-color: #06c1ae;
+}
+.am-search-input{
+    width: 3.2rem;
+    background-color: rgba(0, 0, 0, .3);
+
+}
+.am-navbar{
+    background:#06c1ae;
+}
