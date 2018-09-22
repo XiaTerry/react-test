@@ -40,6 +40,13 @@ class Content extends Component {
                         <div className="right">
                             <h2>{items.product_name}</h2>
                             <p>{items.description}</p>
+                            
+                            <div className="price">
+                                <span>￥</span>
+                                <span>{items.price}</span>
+                                <span>已售{items.num}</span>
+                            </div>
+                            {/* {items.discount_price} */}
                         </div>
                         
                     </li>

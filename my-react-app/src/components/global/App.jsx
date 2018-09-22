@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Head from '../header/Head';
+
 import '../../assets/css/App.css';
+import Head from '../header/Head';
 import List from '../home/List';
 import Active from '../home/Active';
 import Content from '../home/Content';

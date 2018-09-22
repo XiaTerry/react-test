@@ -8,9 +8,10 @@ li{
 a{
     text-decoration: none;
 }
-body{
+html,body{
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 h2{
     margin: 0;
