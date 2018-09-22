@@ -5,6 +5,7 @@ import Head from '../header/Head';
 import List from '../home/List';
 import Active from '../home/Active';
 import Content from '../home/Content';
+import Detail from '../detail/Detail';
 class App extends Component {
   render() {
     return (
@@ -14,6 +15,7 @@ class App extends Component {
         <List/>
         <Active/>
         <Content/>
+        <Detail/>
       </div>
     );
   }
