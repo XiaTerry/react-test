@@ -7,13 +7,13 @@ class Detail extends Component {
     constructor(){
         super();
         this.state={
-            row:{}
+            row:{},
+            id:null,
+            results:[]
         }
     }
     componentDidMount(){
-        console.log(this.props.match.params.id);
         let id = this.props.match.params.id;
-        console.log(id);
         fetch(`http://www.xiechenxi.cn/welcome/detail/${id}`,{
         method:'GET',
         }) // 返回一个Promise对象
@@ -21,17 +21,35 @@ class Detail extends Component {
             return res.json() // res.text()是一个Promise对象
         })
         .then((res)=>{
-            console.log(res) // res是最终的结果
+            // res是最终的结果
             this.setState({
-                row:res.row
+                row:res.row,
+                results:res.results
             })
         })
     }
   render() {
+      let res = this.state.results;
+      const resut = res.map((items,index)=>{
+        return(
+            <div key={index}>
+                <h2>{items.username}</h2>
+                <div>
+                <p>
+                    {items.content}
+                </p>
+                {/* <img src={items.imgs[0].path} alt="" style={{height:"70px"}}/> */}
+                </div>
+                
+                
+            </div>
+            
+        )
+      })
     return (
-      <div className="detail">
+        
+        <div className="detail">
         <Head/>
-       
         <div className="img">
             <img src={this.state.row.img} alt=""/>
             <div className="desc">
@@ -69,28 +87,29 @@ class Detail extends Component {
                     <span>已售2220</span>
                 </li>
             </ul>
-        
         </div>
-        
-
         <div className="group-title">
             商家信息
         </div>
         <Flex>
-            <Flex.Item>
-            <h4>{this.state.row.business_name}</h4>
+            <Flex.Item className="mes">
+                <h4>{this.state.row.business_name}</h4>
                 <h5>{this.state.row.business_address}</h5></Flex.Item>
-            <Flex.Item>
+            <Flex.Item className="mes">
                 <img src={require(`../../assets/img/phone.png`)} alt=""/>
             </Flex.Item>
         </Flex>
-        <div>
-            
-            <div></div>
-        </div>
-        
         <p>商家电话：{this.state.row.business_tel}</p>
+        
         </WingBlank>
+            <WingBlank>
+                <h3>评论</h3>
+                <div>
+                   {resut}
+                </div>
+               
+            </WingBlank>
+        
       </div>
     )
   }

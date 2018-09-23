@@ -4,16 +4,101 @@ import { Carousel,WhiteSpace,WingBlank} from 'antd-mobile';
 
 class List extends Component {
     state = {
-      data: ['1', '2'],
+        data: [
+            {
+              val:"1",
+              items:[
+                {
+                  img:'meishi',
+                  title:"美食"
+                },
+                {
+                  img:'dianying',
+                  title:"电影"
+                },
+                {
+                  img:'jiudian',
+                  title:"酒店"
+                },
+                {
+                  img:'yule',
+                  title:"娱乐"
+                },
+                {
+                  img:'waimai',
+                  title:"外卖"
+                },
+                {
+                  img:'ktv',
+                  title:"ktv"
+                },
+                {
+                  img:'zhoubianyou',
+                  title:"周边游"
+                },
+                {
+                  img:'liren',
+                  title:"丽人"
+                },
+                {
+                  img:'xiaochi',
+                  title:"小吃"
+                },
+                {
+                  img:'jipiao',
+                  title:"机票"
+                }
+              ]
+            },{
+              val:"2",
+              items:[
+                {
+                  img:'meishi',
+                  title:"美食"
+                },
+                {
+                  img:'dianying',
+                  title:"电影"
+                },
+                {
+                  img:'jiudian',
+                  title:"酒店"
+                },
+                {
+                  img:'yule',
+                  title:"娱乐"
+                },
+                {
+                  img:'waimai',
+                  title:"外卖"
+                },
+                {
+                  img:'ktv',
+                  title:"ktv"
+                },
+                {
+                  img:'zhoubianyou',
+                  title:"周边游"
+                },
+                {
+                  img:'liren',
+                  title:"丽人"
+                },
+                {
+                    img:'xiaochi',
+                    title:"小吃"
+                },
+                {
+                    img:'jipiao',
+                    title:"机票"
+                }
+              ]
+            }
+          ],
       imgHeight: 176,
     }
     componentDidMount() {
-      // simulate img loading
-      setTimeout(() => {
-        this.setState({
-          data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn'],
-        });
-      }, 100);
+      
     }
     render() {
       return (
@@ -21,12 +106,10 @@ class List extends Component {
           <Carousel
             autoplay={false}
             infinite
-            beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-            afterChange={index => console.log('slide to', index)}
           >
             {this.state.data.map(val => (
               <div
-                key={val}
+                key={val.val}
                 style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
               >
                 <WhiteSpace size="lg" />
@@ -39,163 +122,18 @@ class List extends Component {
                   }}
                 >
                 <ul>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/meishi.png`)}
-                            alt=""
-                        />
-                         </a>
-                    </div>
-                            <span>
-                                美食
-                            </span>
-                    </li>
-                    <li className="icon">
-                    <div>
-                         <a href="">
-                        <img
-                            src={require(`./../../assets/img/dianying.png`)}
-                            alt=""
-                            
-                        />
-                        </a>
+                    {val.items.map((item,index)=>(
+                        <li className="icon" key={index}>
+                        <div>
+                            <a href="">
+                                <img src={require(`./../../assets/img/${item.img}.png`)}alt=""/>
+                             </a>
                         </div>
                             <span>
-                                电影
+                                {item.title}
                             </span>
-                        
-                   
-                       
-                    </li>
-                    <li className="icon">
-                    <div>
-                         <a href="">
-                        <img
-                            src={require(`./../../assets/img/jiudian.png`)}
-                            alt=""
-                            
-                        />
-                           </a>
-                    </div>
-                            <span>
-                                酒店
-                            </span>
-                     
-                       
-                    </li>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/yule.png`)}
-                            alt=""
-                        />
-                         </a>
-                    </div>
-                            <span>
-                                娱乐
-                            </span>
-                       
-                        
-                    </li>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/waimai.png`)}
-                            alt=""
-                            
-                        />
-                        </a>
-                    </div>
-                            <span>
-                                外卖
-                            </span>
-                        
-                        
-                    </li>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/ktv.png`)}
-                            alt=""
-                           
-                        />
-                        </a>
-                    </div>
-                            <span>
-                                Ktv
-                            </span>
-                        
-                        
-                    </li>
-                    <li className="icon">
-                    <div>
-                         <a href="">
-                        <img
-                            src={require(`./../../assets/img/zhoubianyou.png`)}
-                            alt=""
-                           
-                        />
-                         </a>
-                    </div>
-                            <span>
-                                周边游
-                            </span>
-                       
-                       
-                    </li>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/liren.png`)}
-                            alt=""
-                            
-                        />
-                        </a>
-                    </div>
-                            <span>
-                                丽人
-                            </span>
-                        
-                        
-                    </li>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/xiaochi.png`)}
-                            alt=""
-                            
-                        />
-                         </a>
-                    </div>
-                            <span>
-                                小吃
-                            </span>
-                       
-                        
-                    </li>
-                    <li className="icon">
-                    <div>
-                        <a href="">
-                        <img
-                            src={require(`./../../assets/img/jipiao.png`)}
-                            alt=""
-                            
-                        />
-                         </a>
-                    </div>
-                            <span>
-                                机票
-                            </span>
-                       
-                        
-                    </li>
+                        </li>
+                    ))}
                 </ul>
                 </div>
                 </WingBlank>

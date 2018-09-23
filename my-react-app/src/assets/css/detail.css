@@ -1,11 +1,12 @@
+
 .detail{
     width: 100%;
-    height: 14rem;
-   
+    height: 12rem;
+   background: #fff;
 }
 .detail p{
     text-align: left;
-    padding-left: 0.25rem;
+    
 }
 .detail .img{
     height: 4rem;
@@ -20,9 +21,12 @@
     font-size: 16px;
     position: absolute;
     bottom:0.2rem;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
 }
 .detail .desc .title{
     font-size: 0.38rem;
+    /* margin-right: 0; */
 }
 .detail .price span{
     margin-right: .06rem
@@ -34,9 +38,14 @@
 .detail .price span:nth-child(2){
     color: #06c1ae;
 }
+.detail .price span:nth-child(3){
+    color: #999;
+}
 .detail .groupitem{
     height: 1.3rem;
     width: 100%;
+    border-top:1px solid #ddd8ce;
+    margin-bottom: 0.1rem;
 }
 .detail .groupitem .agree li{
     width: 50%;
@@ -54,15 +63,23 @@
     color: #333;
     border-bottom: 1px solid #ddd8ce
 }
-.am-flexbox div:nth-child(1){
+.am-flexbox .mes:nth-child(1){
     flex-grow: 3;
 }
-.am-flexbox div:nth-child(2){
+.am-flexbox .mes:nth-child(2){
     flex-grow: 1;
     text-align: center;
     border-left: 1px solid #ddd8ce;
 }
-.am-flexbox div:nth-child(2) img{
+.am-flexbox .mes:nth-child(2) img{
     width: 0.4rem;
-    
+}
+.detail .mes h4{
+    color: #000;
+    font-size: 0.32rem;
+    padding-top: 0.2rem;
+}
+.detail .mes h5{
+    color: #666;
+    padding: 0.2rem 0 0.2rem;
 }

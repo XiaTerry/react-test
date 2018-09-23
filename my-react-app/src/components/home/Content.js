@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../assets/css/content.css';  
 import { List} from 'antd-mobile';
 const Item = List.Item;
-const Brief = Item.Brief;
+
 class Content extends Component {
     constructor(props){
         super(props);
@@ -22,7 +22,7 @@ class Content extends Component {
                 return res.json() // res.text()是一个Promise对象
             })
             .then((res)=>{
-                console.log(res) // res是最终的结果
+               // res是最终的结果
                 this.setState({
                     businessList:res
             })
@@ -35,13 +35,12 @@ class Content extends Component {
         newDoms = nowList.map((items,index)=>{
             let id = items.product_id;
             return(
-                    <div>
-                        <List  className="my-list" >
+                    <div key={index}>
+                        <List  className="my-list">
                         <Item
                             arrow="horizontal"
                             thumb={items.img}
                             multipleLine
-                            arrow
                             onClick={() => {this.props.history.push(`/detail/${id}`)}}
                         >
                         <div className="name">

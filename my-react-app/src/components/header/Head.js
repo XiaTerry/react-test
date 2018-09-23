@@ -23,8 +23,6 @@ class Head extends Component {
       }
      
       componentDidMount(){
-        console.log(this.props.match.params.id);
-        let id = this.props.match.params.id;
         if(this.props.match.url.includes('/detail')){
           this.setState({
             leftContent:<Icon type="left" />,
