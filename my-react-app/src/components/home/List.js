@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../assets/css/list.css'
-import { Carousel} from 'antd-mobile';
+import { Carousel,WhiteSpace,WingBlank} from 'antd-mobile';
 
 class List extends Component {
     state = {
@@ -25,10 +25,12 @@ class List extends Component {
             afterChange={index => console.log('slide to', index)}
           >
             {this.state.data.map(val => (
-              <a
+              <div
                 key={val}
                 style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
               >
+                <WhiteSpace size="lg" />
+                <WingBlank size='sm'>
                 <div className="list"
                   style={{ width: '100%', verticalAlign: 'top' ,background:'',height:'179px'}}
                   onLoad={() => {
@@ -43,7 +45,6 @@ class List extends Component {
                         <img
                             src={require(`./../../assets/img/meishi.png`)}
                             alt=""
-                            
                         />
                          </a>
                     </div>
@@ -197,7 +198,8 @@ class List extends Component {
                     </li>
                 </ul>
                 </div>
-              </a>
+                </WingBlank>
+              </div>
             ))}
           </Carousel>
 

@@ -1,21 +1,11 @@
-.ulList{
-    margin-top:0.5rem; 
-    height: 4rem;
-    width: 100%;
-    /* margin: 0.5rem; */
-    /* background: #f00; */
-}
-.ulList li{
-    float: left;
-    margin-left: 5px;
-}
-.ulList img{
-    width: 2rem;
-    height: 2rem;
-}
+
 .act{
     width: 2rem;
-    /* padding-top: 0.5rem; */
+    text-align: center;
     height: 3.2rem;
     background: #fff;
+}
+.act img{
+    height: 2rem;
+    width: 2rem;
 }

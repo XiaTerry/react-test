@@ -1,45 +1,33 @@
 .like{
     /* width: 100%; */
     height: 1rem;
-    background: #f0f;
+    background: #fff;
     text-align: left;
     line-height: 1rem;
     padding-left: 0.2rem;
 }
-.listItem > li{
-    width: 100%;
-    display: flex;
-    height: 1.8rem;
-    padding-left:0.2rem;
-    margin-top: 0.1rem;
-}
-.listItem .left{
-    flex-flow: 1;
-}
-.listItem .left img{
-    height: 1.8rem;
-    width: 1.8rem;
+
+.my-list img{
+    height: 1.5rem;
+    width: 1.5rem;
     border-radius: 0.1rem;
-    
 }
-.listItem .right{
-    padding-left: 0.25rem;
-    flex-grow: 3;
+.my-list p{
+    margin: 0.1rem;
+    font-size: 14px;
 }
-.listItem .right p,h2{
-    text-align: left;
-}
-.listItem .price{
-    width: 100%;
-    height: 0.5rem;
-}
-.listItem .price >span:nth-child(2),span:nth-child(1){
-    float: left;
-    color:#f00;
+.my-list .name p:nth-child(1){
     font-size: 20px;
     font-weight: 700;
 }
-.listItem .price >span:nth-child(3){
-    text-align: right;
-    /* float: right; */
+.my-list .name span:nth-child(1){
+    color: #06c1ae;
+    font-size: 18px;
+}
+.my-list .price {
+    font-size: 14px;
+}
+.my-list .price> span:nth-child(3){
+    float: right;
+    margin-top:2px;
 }

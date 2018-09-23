@@ -1,9 +1,8 @@
 .list >ul{
-    padding-inline-start:0 !important;
+    /* padding-inline-start:0 !important; */
     height: 100%;
     width: 100%;
-    margin: 15px; 
-    
+    text-align: center;
 }
 .list >ul>li{
     float: left;
@@ -19,5 +18,4 @@
 }
 .icon a>span{
     color: #666;
-    margin-top: 5px;
 }

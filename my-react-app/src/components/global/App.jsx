@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-
-import '../../assets/css/App.css';
-import Head from '../header/Head';
-import List from '../home/List';
-import Active from '../home/Active';
-import Content from '../home/Content';
+// import '../../assets/css/App.css';
+import 'antd-mobile/dist/antd-mobile.css';
+import Home from '../home/Home';
 import Detail from '../detail/Detail';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 class App extends Component {
+  constructor(){
+    super();
+    this.state={
+
+    }
+  }
   render() {
     return (
-      <div className="App">
-      {/* 头部导航 */}
-        <Head/>
-        <List/>
-        <Active/>
-        <Content/>
-        <Detail/>
-      </div>
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={Home}/>
+          <Route path="/detail/:id" component={Detail}/>
+        </div>
+      </Router>
     );
   }
 }
